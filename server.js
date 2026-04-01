@@ -66,26 +66,33 @@ async function callGroq(idea, budget, location) {
     const url = "https://api.groq.com/openai/v1/chat/completions";
     
     // AI-ku kudukura instruction (Prompt) ippo detail-ah irukum
-    const prompt = `Analyze this startup idea: "${idea}" with an initial budget of $${budget} starting in ${location}. 
-    Return ONLY a JSON object with these exact keys:
-    {
-      "startupName": "",
-      "tagline": "",
-      "domain": "",
-      "problem": "",
-      "solution": "",
-      "targetAudience": "",
-      "businessModel": "",
-      "locationAnalysis": "Explain why ${location} is a good place to start this business and mention local demand.",
-      "expansionLocation": "Suggest another specific city/region to expand after initial success.",
-      "competitors": [{"name": "", "weakness": ""}, {"name": "", "weakness": ""}, {"name": "", "weakness": ""}],
-      "mvpPlan": [
-        {"week": "1", "title": "Validation", "task": ""},
-        {"week": "2", "title": "MVP Build", "task": ""},
-        {"week": "3", "title": "Testing", "task": ""},
-        {"week": "4", "title": "Launch", "task": ""}
-      ]
-    }`;
+  // server.js-la prompt section-ah indha maari mathunga
+const prompt = `Analyze this startup: "${idea}" in ${location} with $${budget}. 
+Return ONLY a JSON object with these EXACT keys:
+{
+  "startupName": "string",
+  "tagline": "string",
+  "domain": "string",
+  "marketScore": 8,
+  "techScore": 9,
+  "problem": "string",
+  "solution": "string",
+  "targetAudience": "string",
+  "businessModel": "string",
+  "locationAnalysis": "string",
+  "expansionLocation": "string",
+  "competitors": [
+    {"name": "Competitor 1", "weakness": "string"},
+    {"name": "Competitor 2", "weakness": "string"}
+  ],
+  "mvpPlan": [
+    {"week": "1", "title": "string", "task": "string"},
+    {"week": "2", "title": "string", "task": "string"},
+    {"week": "3", "title": "string", "task": "string"},
+    {"week": "4", "title": "string", "task": "string"}
+  ],
+  "graphData": [number, number, number, number, number]
+}`;
 
     const response = await fetch(url, {
         method: "POST",
