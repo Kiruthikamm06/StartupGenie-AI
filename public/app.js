@@ -104,18 +104,16 @@ function renderChart(points) {
         }
     });
 }*/
-async function generatePlan() {
+
+        async function generatePlan() {
     const idea = document.getElementById('ideaInput').value;
     const budget = document.getElementById('budgetInput').value;
     const location = document.getElementById('locationInput').value;
 
-    if (!idea || !budget || !location) return alert("Fill all fields!");
+    if (!idea || !budget || !location) return alert("Please fill all fields!");
 
-    // UI Reset
     document.getElementById('loadingSection').classList.remove('hidden');
     document.getElementById('resultsSection').classList.add('hidden');
-    document.getElementById('competitorList').innerHTML = "";
-    document.getElementById('mvpList').innerHTML = "";
 
     try {
         const res = await fetch('/api/generate', {
@@ -125,14 +123,17 @@ async function generatePlan() {
         });
         const data = await res.json();
 
-        // Basic Info
+        // Basic Details
         document.getElementById('startupName').innerText = data.startupName;
         document.getElementById('taglineDisplay').innerText = data.tagline;
         document.getElementById('pText').innerText = data.problem;
         document.getElementById('sText').innerText = data.solution;
-        document.getElementById('locName').innerText = location.toUpperCase();
         document.getElementById('locAnalysis').innerText = data.locationAnalysis;
         document.getElementById('expLoc').innerText = data.expansionLocation;
+
+        // Financials (Runway & Breakeven)
+        document.getElementById('runwayText').innerText = data.runway || "12 Months";
+        document.getElementById('breakevenText').innerText = data.breakeven || "18 Months";
 
         // Scores
         document.getElementById('mText').innerText = `${data.marketScore}/10`;
@@ -141,35 +142,34 @@ async function generatePlan() {
         document.getElementById('tBar').style.width = `${data.techScore * 10}%`;
         document.getElementById('ovScore').innerText = ((data.marketScore + data.techScore) / 2).toFixed(1);
 
-        // Competitors Loop (Fix for 2 items)
+        // Competitors
         document.getElementById('competitorList').innerHTML = data.competitors.map(c => `
-            <div style="background:#0d1117; padding:15px; border-radius:10px; border: 1px solid #333;">
+            <div style="background:#161b22; padding:15px; border-radius:10px; border:1px solid #30363d;">
                 <h4 style="margin:0; color:#a583ff;">${c.name}</h4>
                 <p style="font-size:0.8rem; margin:5px 0 0 0; opacity:0.8;">Weakness: ${c.weakness}</p>
             </div>
         `).join('');
 
-        // MVP Plan Loop (Fix for 4 weeks)
+        // 4-Week MVP Plan
         document.getElementById('mvpList').innerHTML = data.mvpPlan.map(m => `
-            <div style="display:flex; gap:15px; margin-bottom:12px;">
-                <div style="background:#7cf5c0; color:#000; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; flex-shrink:0;">${m.week}</div>
+            <div style="display:flex; gap:15px; margin-bottom:15px;">
+                <div style="background:#7cf5c0; color:#0d1117; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; flex-shrink:0;">${m.week}</div>
                 <div>
-                    <h4 style="margin:0; font-size:1rem;">${m.title}</h4>
-                    <p style="margin:2px 0; font-size:0.85rem; opacity:0.7;">${m.task}</p>
+                    <h4 style="margin:0; font-size:1rem; color:#fff;">${m.title}</h4>
+                    <p style="margin:4px 0; font-size:0.85rem; opacity:0.7;">${m.task}</p>
                 </div>
             </div>
         `).join('');
 
-        // Show Results
+        // Dynamic Graph
+        renderChart(data.graphData);
+
         document.getElementById('loadingSection').classList.add('hidden');
         document.getElementById('resultsSection').classList.remove('hidden');
 
-        // Graph
-        renderChart(data.graphData);
-
     } catch (e) {
         console.error(e);
-        alert("Error generating plan!");
+        alert("Genie is tired. Try again!");
         document.getElementById('loadingSection').classList.add('hidden');
     }
 }
@@ -184,11 +184,15 @@ function renderChart(points) {
             datasets: [{
                 data: points,
                 borderColor: '#7cf5c0',
-                fill: true,
                 backgroundColor: 'rgba(124, 245, 192, 0.1)',
+                fill: true,
                 tension: 0.4
             }]
         },
-        options: { plugins: { legend: { display: false } } }
+        options: { 
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { display: false }, x: { grid: { display: false }, ticks: { color: '#8b949e' } } }
+        }
     });
 }
