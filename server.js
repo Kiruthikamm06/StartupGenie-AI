@@ -68,7 +68,8 @@ app.post("/api/generate", async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`🚀 Genie Live at http://localhost:${PORT}`));*/
+app.listen(PORT, () => console.log(`🚀 Genie Live at http://localhost:${PORT}`));
+*/
 const express = require('express');
 const axios = require('axios');
 const path = require('path');
@@ -137,4 +138,4 @@ app.post('/api/generate', async (req, res) => {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-*/
+
