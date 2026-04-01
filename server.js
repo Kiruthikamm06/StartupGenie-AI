@@ -70,7 +70,9 @@ app.post("/api/generate", async (req, res) => {
 
 app.listen(PORT, () => console.log(`🚀 Genie Live at http://localhost:${PORT}`));
 */
-const express = require('express');
+
+
+      const express = require('express');
 const axios = require('axios');
 const path = require('path');
 require('dotenv').config();
@@ -79,7 +81,6 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// IMPORTANT: Path fix for "Cannot GET /"
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -87,32 +88,32 @@ app.get('/', (req, res) => {
 app.post('/api/generate', async (req, res) => {
     const { idea, budget, location } = req.body;
 
-    const prompt = `Analyze this startup idea: "${idea}" in ${location} with a budget of $${budget}.
+    const prompt = `Analyze this startup idea: "${idea}" in ${location} with $${budget}. 
+    Return ONLY a JSON object with these EXACT keys.
     
-    CRITICAL RULES:
-    1. You MUST provide EXACTLY 2 competitors in the "competitors" array.
-    2. You MUST provide EXACTLY 4 weeks in the "mvpPlan" array (Week 1, 2, 3, and 4).
-    3. Return ONLY a valid JSON object. No extra text.
+    RULES: 
+    - "competitors" must have exactly 2 items.
+    - "mvpPlan" must have exactly 4 weeks (1, 2, 3, 4).
+    - "graphData" must be 5 numbers that change based on the idea's potential.
+    - Provide realistic "runway" and "breakeven" strings.
 
-    JSON Structure:
     {
       "startupName": "string",
       "tagline": "string",
-      "marketScore": number,
-      "techScore": number,
+      "marketScore": 8,
+      "techScore": 7,
       "problem": "string",
       "solution": "string",
       "locationAnalysis": "string",
       "expansionLocation": "string",
-      "competitors": [
-        {"name": "Competitor 1", "weakness": "string"},
-        {"name": "Competitor 2", "weakness": "string"}
-      ],
+      "runway": "string",
+      "breakeven": "string",
+      "competitors": [{"name":"string","weakness":"string"},{"name":"string","weakness":"string"}],
       "mvpPlan": [
-        {"week": "1", "title": "Market Validation", "task": "string"},
-        {"week": "2", "title": "Prototyping", "task": "string"},
-        {"week": "3", "title": "Beta Testing", "task": "string"},
-        {"week": "4", "title": "Soft Launch", "task": "string"}
+        {"week": "1", "title": "Validation", "task": "string"},
+        {"week": "2", "title": "Build MVP", "task": "string"},
+        {"week": "3", "title": "Beta Test", "task": "string"},
+        {"week": "4", "title": "Launch", "task": "string"}
       ],
       "graphData": [number, number, number, number, number]
     }`;
@@ -128,14 +129,11 @@ app.post('/api/generate', async (req, res) => {
                 'Content-Type': 'application/json'
             }
         });
-
         res.json(JSON.parse(response.data.choices[0].message.content));
     } catch (error) {
-        console.error("AI Error:", error);
-        res.status(500).json({ error: "Genie encountered a glitch!" });
+        res.status(500).json({ error: "Genie Error" });
     }
 });
 
 const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
+app.listen(PORT, () => console.log(`Server live on ${PORT}`));
