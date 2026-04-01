@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500;700&display=swap');
+
+:root {
+  --bg: #07090f;
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.1);
+  --accent: #7cf5c0;
+  --accent2: #a78bfa;
+  --text: #eef2ff;
+  --grad: linear-gradient(135deg, #7cf5c0, #a78bfa);
+}
+
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; padding: 40px 20px; line-height: 1.6; }
+.wrapper { max-width: 850px; margin: auto; }
+
+/* Header & Logo */
+.header { text-align: center; margin-bottom: 60px; }
+.logo { display: inline-flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.logo-icon { font-size: 3rem; filter: drop-shadow(0 0 10px var(--accent)); }
+.logo-text { font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.main-tagline { color: rgba(238,242,255,0.4); font-size: 1rem; }
+
+/* Hero Results */
+.hero-center { text-align: center; margin-bottom: 50px; }
+.domain-badge { border: 1px solid var(--accent); color: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+.startup-title { font-family: 'Syne', sans-serif; font-size: 4rem; margin: 15px 0; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-tagline { color: rgba(238,242,255,0.6); font-size: 1.1rem; }
+
+/* Cards & Layout */
+.card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; margin-bottom: 25px; backdrop-filter: blur(20px); }
+.section-label { font-family: 'Syne', sans-serif; color: var(--accent); font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 1.5px; }
+.grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.info-box label { display: block; color: var(--accent2); font-weight: 800; font-size: 0.75rem; margin-bottom: 8px; font-family: 'Syne', sans-serif; }
+
+/* MVP Bullet points with circles */
+.mvp-bullets { list-style: none; padding: 0; }
+.mvp-bullets li { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
+.step-circle { background: var(--grad); min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 900; font-size: 0.8rem; }
+
+/* Competitor Cards */
+.comp-card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border); }
+.comp-card h4 { color: #fff; margin-bottom: 5px; }
+.comp-card p { color: #f87171; font-size: 0.85rem; }
+
+/* Global components */
+/* Update your textarea styling */
+textarea {
+    width: 100%;             /* Layout-ku ulla fit aagum */
+    box-sizing: border-box;  /* Padding and Border-ah width-kullaye vechukkum */
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: #fff;
+    padding: 15px;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    resize: none;            /* User manual-ah drag panni layout-ah odakkama irukka */
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    border-color: var(--accent);
+}
+
+/* Make sure the container card has enough padding */
+.input-card {
+    padding: 25px;           /* Extra space around input */
+    overflow: hidden;        /* Velila vara elements-ah cut pannidum */
+}
+button { width: 100%; padding: 18px; background: var(--grad); border: none; border-radius: 12px; font-family: 'Syne', sans-serif; font-weight: 800; cursor: pointer; }
+.hidden { display: none; }
+.spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 10px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* --- Innovation Score & Business Model Styles --- */
+
+.score-row {
+    margin-bottom: 25px;
+}
+
+.score-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.progress-container {
+    background: rgba(255, 255, 255, 0.05);
+    height: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1.5s cubic-bezier(0.1, 0, 0.2, 1);
+}
+
+.score-desc {
+    font-size: 0.75rem;
+    color: rgba(238, 242, 255, 0.4);
+    margin-top: 6px;
+}
+
+.overall-footer {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-score-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Business Model Specifics */
+.biz-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.biz-item {
+    background: rgba(255,255,255,0.02);
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 3px solid var(--accent);
+}
+
+.biz-item h4 {
+    font-family: 'Syne', sans-serif;
+    color: var(--accent2);
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.biz-item p {
+    font-size: 0.85rem;
+    color: rgba(238, 242, 255, 0.7);
+    margin: 0;
+}
+/* --- COMPACT OPTIMIZATION --- */
+.startup-title { font-size: 2.5rem; margin: 10px 0; } /* Reduced from 4rem */
+.card { padding: 20px; margin-bottom: 15px; } /* Reduced padding */
+.section-label { font-size: 0.7rem; margin-bottom: 12px; }
+
+/* Score Bars */
+.score-row { margin-bottom: 12px; }
+.score-header { display: flex; justify-content: space-between; font-size: 0.75rem; font-family: 'Syne'; margin-bottom: 5px; }
+.progress-container { background: rgba(255,255,255,0.05); height: 6px; border-radius: 10px; overflow: hidden; }
+.progress-bar { height: 100%; border-radius: 10px; animation: fillBar 1.5s ease-out forwards; }
+@keyframes fillBar { from { width: 0%; } }
+
+.overall-footer { margin-top: 15px; padding-top: 10px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
+.total-score-val { font-family: 'Syne'; font-size: 2rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.small-label { font-size: 0.7rem; font-weight: 800; color: var(--accent2); }
+
+/* Biz Grid */
+.biz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.biz-item { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; border-left: 2px solid var(--accent); }
+.biz-item h4 { font-family: 'Syne'; font-size: 0.7rem; color: var(--accent2); margin-bottom: 4px; text-transform: uppercase; }
+.biz-item p { font-size: 0.8rem; color: rgba(238,242,255,0.6); margin: 0; }
+.chart-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+}
+#competitorList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.competitor-box:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: scale(1.02);
+}
+
+canvas {
+    max-height: 250px !important; /* Size control */
+}
+.chart-container {
+    position: relative;
+    height: 250px; /* Idhu mukkiyam */
+    width: 100%;
+    margin-top: 20px;
+}
+/* Making inputs look exactly like the Idea Textarea */
+input[type="number"], 
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: #fff;
+    padding: 15px;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+input:focus {
+    border-color: var(--accent);
+}
+
+/* Fix for that $ sign positioning if needed */
+.input-card div[style*="relative"] span {
+    z-index: 10;
+}
