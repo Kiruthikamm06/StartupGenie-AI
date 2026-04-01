@@ -336,25 +336,26 @@ async function generatePlan() {
         document.getElementById('breakEvenText').innerText = "Month 10-12";
 
         // 5. Competitors (Dynamic Cards)
-        const comps = data.competitors || [];
-        document.getElementById('competitorList').innerHTML = comps.map(c => `
-            <div style="background:#0d1117; padding:15px; border-radius:10px; border: 1px solid #333;">
-                <h4 style="margin:0; color:var(--accent2); font-size:1rem;">${c.name}</h4>
-                <p style="font-size:0.8rem; margin:5px 0 0 0; opacity:0.8;">Weakness: ${c.weakness}</p>
-            </div>
-        `).join('') || "<p>No direct competitors found.</p>";
+       // app.js-la Competitors section
+const comps = data.competitors || [];
+document.getElementById('competitorList').innerHTML = comps.map(c => `
+    <div style="background:#0d1117; padding:15px; border-radius:10px; border: 1px solid #333;">
+        <h4 style="margin:0; color:var(--accent2); font-size:1rem;">${c.name}</h4>
+        <p style="font-size:0.8rem; margin:5px 0 0 0; opacity:0.8;">Weakness: ${c.weakness}</p>
+    </div>
+`).join('');
 
-        // 6. MVP Roadmap
-        const mvp = data.mvpPlan || [];
-        document.getElementById('mvpList').innerHTML = mvp.map(m => `
-            <div style="display:flex; gap:15px; margin-bottom:12px;">
-                <div style="background:var(--accent); color:#000; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; flex-shrink:0;">${m.week}</div>
-                <div>
-                    <h4 style="margin:0; font-size:1rem;">${m.title}</h4>
-                    <p style="margin:2px 0; font-size:0.85rem; opacity:0.7;">${m.task}</p>
-                </div>
-            </div>
-        `).join('');
+// app.js-la MVP Plan section (4 weeks check)
+const mvp = data.mvpPlan || [];
+document.getElementById('mvpList').innerHTML = mvp.map(m => `
+    <div style="display:flex; gap:15px; margin-bottom:12px;">
+        <div style="background:var(--accent); color:#000; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; flex-shrink:0;">${m.week}</div>
+        <div>
+            <h4 style="margin:0; font-size:1rem;">${m.title}</h4>
+            <p style="margin:2px 0; font-size:0.85rem; opacity:0.7;">${m.task}</p>
+        </div>
+    </div>
+`).join('');
 
         // 7. Graph
         let points = data.graphData || [budget*0.2, budget*0.5, budget*1.5, budget*4, budget*10];
